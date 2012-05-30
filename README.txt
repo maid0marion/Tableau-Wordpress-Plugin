@@ -1,4 +1,4 @@
-=== Wordpress Shortcode - Embed-Tableau-Server-Viz ===
+=== Tableau Plugin ===
 Contributors: Julie Repass (maid0marion)
 Tags: shortcode, embed, tableau
 Requires at least: 

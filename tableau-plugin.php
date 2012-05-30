@@ -8,37 +8,18 @@ Author: Julie Repass
 License: GPL2
 */
 /*
-Copyright 2012  JULIE REPASS  (email : julie_repass@hotmail.com)
+Copyright (c) 2012 Julie Repass
 
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License, version 2, as 
-    published by the Free Software Foundation.
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
 */
 
-// [tabviztag server="server_name" workbook="workbook_name" view="view_name" width="width" height="height" tabs="tabs" toolbar="toolbar" revert="revert" refresh="refresh" linktarget="linktarget"]
-if ( ! function_exists('tevp_paths') ) {
-	/*
-	If using domain mapping or plugins that change the path dinamically, edit these to set the proper path and URL.
-	*/
-	function tevp_paths() {
-		if ( !defined('TEVP_URL') )
-			define('TEVP_URL', plugin_dir_url(__FILE__));
-			
-		if ( !defined('TADV_PATH') )
-			define('TEVP_PATH', plugin_dir_path(__FILE__));
-	}
-	add_action( 'plugins_loaded', 'tevp_paths', 50 );
-}
-	
+// [tabviztag server="server_name" workbook="workbook_name" view="view_name" width="width" height="height" tabs="tabs" toolbar="toolbar" revert="revert" refresh="refresh"]
+
 
 function tableau_func( $atts, $content = null ) {
 		extract( shortcode_atts( array(
@@ -49,12 +30,11 @@ function tableau_func( $atts, $content = null ) {
 						'toolbar' => 'yes',
 						'revert' => '',
 						'refresh' => '',
-						'linktarget' => '_blank',
-    				'width' => '800',
-    				'height' => '600'   				
+						'width' => '800px',
+    				'height' => '600px'   				
     				), $atts));
 
-		$output = "<iframe src='http://{$server}/views/{$workbook}/{$view}?:embed=yes&:tabs={$tabs}&:toolbar={$toolbar}?:revert={$revert}?:refresh={$refresh}?:linktarget={$linktarget}' width='{$width}' height='{$height}'></iframe>";
+		$output = "<iframe src='http://{$server}/views/{$workbook}/{$view}?:embed=yes&:tabs={$tabs}&:toolbar={$toolbar}?:revert={$revert}?:refresh={$refresh}' width='{$width}' height='{$height}'></iframe>";
     	return $output;
 	}
 	add_shortcode( 'tableau', 'tableau_func');
@@ -87,7 +67,7 @@ function tableau_quicktag() {
 * - Priority/position on bar, 1-9 = first, 11-19 = second, 21-29 = third, etc. (optional)
 */
 
-QTags.addButton( 'tableau-plugin', 'tableau', '\n[tableau server="" workbook="" view="" tabs="yes" revert="" refresh="" linktarget="" width="100%" height="100%"]', '[/tableau]\n' );
+QTags.addButton( 'tableau-plugin', 'tableau', '\n[tableau server="" workbook="" view="" tabs="yes" revert="" refresh="" width="800px" height="600px"]', '[/tableau]\n' );
 </script>
 <?php 
 }
