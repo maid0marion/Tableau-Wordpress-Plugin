@@ -21,6 +21,21 @@ The current version of this project contains two template files:
 1. Activate the plugin through the 'Plugins' menu in WordPress
 1. Place `<?php do_action('plugin_name_hook'); ?>` in your templates
 
+== Using the Plugin ==
+The plugin adds a button to both the Visual and HTML editors to insert short code for embedding an interactive Tableau Server view.  For more information on using the Tableau plugin for Wordpress, please visit the [How to Use the Tableau Wordpress Plugin]( 
+https://github.com/maid0marion/Tableau-Wordpress-Plugin/wiki/How-to-Use-the-Tableau-Wordpress-Plugin) wiki page.
+
+== Screenshots ==
+
+1. Screenshot-1.png: tinyMCE pop-up window for Tableau button in Visual editor 
+
+![Screenshot of TinyMCE popup](https://github.com/maid0marion/Tableau-Wordpress-Plugin/raw/master/tableau-plugin/Screenshot-1.png)
+
+2. Screenshot-2.png: short code generated from Tableau button in HTML editor
+
+![Screenshot of using Tableau shortcode in HTML editor](https://github.com/maid0marion/Tableau-Wordpress-Plugin/raw/master/tableau-plugin/Screenshot-2.png)
+
+
 == Frequently Asked Questions ==
 
 = Why use an iFrame rather than the Javascript code generated from the "Share" button on Tableau Server? =
@@ -35,17 +50,10 @@ That is the plan. This is version 1 where I wanted to make the shortcode availab
 easier to embed Tableau Server views using the available parameter options.
 
 
-== Screenshots ==
-
-1. This screen shot description corresponds to screenshot-1.(png|jpg|jpeg|gif). Note that the screenshot is taken from
-the directory of the stable readme.txt, so in this case, `/tags/4.3/screenshot-1.png` (or jpg, jpeg, gif)
-2. This is the second screen shot
-
 == Changelog ==
 
-= 1.0 =
-* A change since the previous version.
-* Another change.
+= 1.0
+
 
 
 == Upgrade Notice ==
@@ -56,25 +64,7 @@ Upgrade notices describe the reason a user should upgrade.  No more than 300 cha
 = 0.5 =
 This version fixes a security related bug.  Upgrade immediately.
 
-== Arbitrary section ==
 
-You may provide arbitrary sections, in the same format as the ones above.  This may be of use for extremely complicated
-plugins where more information needs to be conveyed that doesn't fit into the categories of "description" or
-"installation."  Arbitrary sections will be shown below the built-in sections outlined above.
-
-== A brief Markdown Example ==
-
-Ordered list:
-
-1. Some feature
-1. Another feature
-1. Something else about the plugin
-
-Unordered list:
-
-* something
-* something else
-* third thing
 
 Here's a link to [WordPress](http://wordpress.org/ "Your favorite software") and one to [Markdown's Syntax Documentation][markdown syntax].
 Titles are optional, naturally.
