@@ -18,80 +18,76 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 */
 
-// [tabviztag server="server_name" workbook="workbook_name" view="view_name" width="width" height="height" tabs="tabs" toolbar="toolbar" revert="revert" refresh="refresh"]
-
+// define shortcode parameters
 
 function tableau_func( $atts, $content = null ) {
-		extract( shortcode_atts( array(
-    				'server' => 'public.tableausoftware.com',
-    				'workbook' => 'workbook_name',
-    				'view' => 'view_name',
-						'tabs' => 'yes',
-						'toolbar' => 'yes',
-						'revert' => '',
-						'refresh' => '',
-						'width' => '800px',
-    				'height' => '600px'   				
-    				), $atts));
+	extract( shortcode_atts( array(
+    	'server' => 'public.tableausoftware.com',
+    	'workbook' => 'workbook_name',
+    	'view' => 'view_name',
+		'tabs' => 'yes',
+		'toolbar' => 'yes',
+		'revert' => '',
+		'refresh' => '',
+		'width' => '800px',
+    	'height' => '600px',  
+		'linktarget' => '',			
+		'options' => array(
+						'display_name' => 'tableau',
+						'open_tag' => '\n[tableau]',
+						'close_tag' => '[/tableau]\n',
+						'key' => '')
+    ), $atts));
 
-		$output = "<iframe src='http://{$server}/views/{$workbook}/{$view}?:embed=yes&:tabs={$tabs}&:toolbar={$toolbar}?:revert={$revert}?:refresh={$refresh}' width='{$width}' height='{$height}'></iframe>";
-    	return $output;
-	}
-	add_shortcode( 'tableau', 'tableau_func');
-
-function tableau_addbuttons() {
-   // Don't bother doing this stuff if the current user lacks permissions
-   if ( ! current_user_can('edit_posts') && ! current_user_can('edit_pages') )
-     return;
-	    
-   // Add only in Rich Editor mode
-   if ( get_user_option('rich_editing') == 'true') {
-     add_filter('mce_external_plugins', 'add_tableau_mce_plugin');
-     add_filter('mce_buttons_2', 'register_tableau_button');
-   }
+	$output = "<iframe src='http://{$server}/views/{$workbook}/{$view}?:embed=yes&:tabs={$tabs}&:toolbar={$toolbar}?:revert={$revert}?:refresh={$refresh}?:linktarget=($linktarget}' width='{$width}' height='{$height}'></iframe>";
+    return $output;
 }
 
-add_shortcode( 'tableau-button', 'tableau_func');
-add_action('admin_footer','tableau_quicktag');
+function tableau_addbuttons() {
+   // Don't proceed if the current user lacks permissions
+	if ( ! current_user_can( 'edit_posts' ) && ! current_user_can( 'edit_pages' ) ) {
+    	return;
+	}
+	    
+   // Add only in Visual Editor mode
+	if ( get_user_option( 'rich_editing' ) == 'true' ) {
+   		add_filter( 'mce_external_plugins', 'add_tableau_mce_plugin' );
+     	add_filter( 'mce_buttons_2', 'register_tableau_button' );
+	}
+}
 
+// register Tableau shortcode for both the HTML and Visual editors
+add_shortcode( 'tableau', 'tableau_func');
+add_shortcode( 'tableau-button', 'tableau_func' );
+add_action( 'admin_footer', 'tableau_quicktag' );
+
+// define parameters for Tableau shortcode in the Visual Editor
 function tableau_quicktag() {
 ?>
-<script type="text/javascript" charset="utf-8">
-/* Adding Quicktag buttons to the editor Wordpress ver. 3.3 and above
-* - Button HTML ID (required)
-* - Button display, value="" attribute (required)
-* - Opening Tag (required)
-* - Closing Tag (required)
-* - Access key, accesskey="" attribute for the button (optional)
-* - Title, title="" attribute (optional)
-* - Priority/position on bar, 1-9 = first, 11-19 = second, 21-29 = third, etc. (optional)
-*/
-
-QTags.addButton( 'tableau-plugin', 'tableau', '\n[tableau server="" workbook="" view="" tabs="yes" revert="" refresh="" width="800px" height="600px"]', '[/tableau]\n' );
-</script>
+	<script type="text/javascript" charset="utf-8">
+		QTags.addButton( 'tableau-plugin', 'tableau', '\n[tableau server="" workbook="" view="" tabs="" toolbar="" revert="" refresh="" linktarget="" width="800px" height="600px"]', '[/tableau]\n' );
+	</script>
 <?php 
 }
 
 function register_tableau_button( $buttons ) {
-   array_push($buttons, "|", "tableau" );
+   array_push( $buttons, "|", "tableau" );
    return $buttons;
 }
  
-// Load the TinyMCE plugin : editor_plugin.js (wp2.5)
-function add_tableau_mce_plugin($plugin_array) {
+// Load the TinyMCE plugin : editor_plugin.js
+function add_tableau_mce_plugin( $plugin_array ) {
    $plugin_array['tableau'] = plugin_dir_url(__FILE__) . 'tinymce/tableau/editor_plugin.js';
    return $plugin_array;
 }
  
 // init process for button control
-
-function tableau_refresh_mce($ver) {
+function tableau_refresh_mce( $ver ) {
   $ver += 3;
   return $ver;
 }
 
-add_filter( 'tiny_mce_version', 'tableau_refresh_mce');
-
-add_action('init', 'tableau_addbuttons');
+add_filter( 'tiny_mce_version', 'tableau_refresh_mce' );
+add_action( 'init', 'tableau_addbuttons' );
 
 ?>

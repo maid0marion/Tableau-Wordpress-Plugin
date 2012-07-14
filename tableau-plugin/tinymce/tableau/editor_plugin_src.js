@@ -1,5 +1,5 @@
 ﻿/**
- * $Id: editor_plugin_src.js  2012-04-29 maid0marion $
+ * $Id: editor_plugin_src.js  2012-06-21 maid0marion $
  *
  * @author maid0marion
  */	
@@ -23,14 +23,14 @@
             ed.addButton('tableau', {
                 title : 'Embed Tableau Server Viz',
 				cmd : 'mceTableau',
-                image : url+'/img/tableau.png',
-				
-				
+                image : url+'/img/tableau.png',								
             });
         },
         createControl : function(n, cm) {
             return null;
         },
+		
+		// Get plugin info
         getInfo : function() {
             return {
                 longname : "Tableau",
@@ -41,6 +41,7 @@
             };
         }
     });
+	// Register plugin with tinyMCE
     tinymce.PluginManager.add('tableau', tinymce.plugins.TableauPlugin);
 })();
 
