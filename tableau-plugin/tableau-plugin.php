@@ -24,22 +24,22 @@ function tableau_func( $atts, $content = null ) {
 
 	// embed parameters: http://onlinehelp.tableausoftware.com/current/server/en-us/embed_list.htm
 	extract( shortcode_atts( array(
-    	'server' => 'public.tableausoftware.com',
-    	'workbook' => 'workbook_name',
-    	'view' => 'view_name',
+		'server' => 'public.tableausoftware.com',
+		'workbook' => 'workbook_name',
+		'view' => 'view_name',
 		'tabs' => 'yes',
 		'toolbar' => 'yes',
 		'revert' => '',
 		'refresh' => '',
 		'width' => '800px',
-    	'height' => '600px',
+		'height' => '600px',
 		'linktarget' => '',
 		'showVizHome' => 'no',
 		'options' => array(
-						'display_name' => 'tableau',
-						'open_tag' => '\n[tableau]',
-						'close_tag' => '[/tableau]\n',
-						'key' => '')
+			'display_name' => 'tableau',
+			'open_tag' => '\n[tableau]',
+			'close_tag' => '[/tableau]\n',
+			'key' => '')
     ), $atts));
 
 	$url = esc_url($server); // strips/adds schema, i.e. user can add or not add the server with http(s) schema
