@@ -2,8 +2,8 @@ Tableau Plugin
 ==============
 *Contributors:* Julie Repass (maid0marion)
 *Tags:* shortcode, embed, tableau
-*Tested versions:* 3.3.1, 3.4.1
-*Tested up to:* 3.4.1
+*Tested versions:* 3.3.1, 3.4.1, 4.0
+*Tested up to:* 4.0
 
 Description
 ===========
@@ -41,6 +41,10 @@ easier to embed Tableau Server views using the available parameter options.
 
 Changelog
 =========
+V1.0.2 - 17.09.2014
+-------------------
+* Added the showVizHome=no parameter (see [How to Fix Your iFrame](http://www.tableausoftware.com/public/blog/2014/03/fix-your-iframe-2386))
+
 V1.01 - 23.03.2012
 ------------------
 * Fixed bug for 'revert' parameter and added support for target URL parameter
