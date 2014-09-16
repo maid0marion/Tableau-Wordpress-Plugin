@@ -1,9 +1,9 @@
 Tableau Plugin
 ==============
-*Contributors:* Julie Repass (maid0marion)
-*Tags:* shortcode, embed, tableau
-*Tested versions:* 3.3.1, 3.4.1, 4.0
-*Tested up to:* 4.0
+	*Contributors:* Julie Repass (maid0marion), PerS
+	*Tags:* shortcode, embed, tableau
+	*Tested versions:* 3.3.1, 3.4.1, 4.0
+	*Tested up to:* 4.0
 
 Description
 ===========
