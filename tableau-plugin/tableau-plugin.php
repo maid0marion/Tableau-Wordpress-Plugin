@@ -1,9 +1,9 @@
-<?php 
+<?php
 /*
 Plugin Name: Tableau Plugin
 Project URI: https://github.com/maid0marion/Tableau-Wordpress-Plugin
-Description: The following code defines and registers a shortcode to embed a Tableau visualization via an iFrame. 
-Version: 1.0
+Description: The following code defines and registers a shortcode to embed a Tableau visualization via an iFrame.
+Version: 1.0.2
 Author: Julie Repass
 License: GPL2
 */
@@ -21,25 +21,30 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 // define shortcode parameters
 
 function tableau_func( $atts, $content = null ) {
+
+	// embed parameters: http://onlinehelp.tableausoftware.com/current/server/en-us/embed_list.htm
 	extract( shortcode_atts( array(
-    	'server' => 'public.tableausoftware.com',
-    	'workbook' => 'workbook_name',
-    	'view' => 'view_name',
+		'server' => 'public.tableausoftware.com',
+		'workbook' => 'workbook_name',
+		'view' => 'view_name',
 		'tabs' => 'yes',
 		'toolbar' => 'yes',
 		'revert' => '',
 		'refresh' => '',
 		'width' => '800px',
-    	'height' => '600px',  
-		'linktarget' => '',			
+		'height' => '600px',
+		'linktarget' => '',
+		'showVizHome' => 'no',
 		'options' => array(
-						'display_name' => 'tableau',
-						'open_tag' => '\n[tableau]',
-						'close_tag' => '[/tableau]\n',
-						'key' => '')
+			'display_name' => 'tableau',
+			'open_tag' => '\n[tableau]',
+			'close_tag' => '[/tableau]\n',
+			'key' => '')
     ), $atts));
 
-	$output = "<iframe src='http://{$server}/views/{$workbook}/{$view}?:embed=yes&:tabs={$tabs}&:toolbar={$toolbar}?:revert={$revert}?:refresh={$refresh}?:linktarget=($linktarget}' width='{$width}' height='{$height}'></iframe>";
+	$url = esc_url($server); // strips/adds schema, i.e. user can add or not add the server with http(s) schema
+
+	$output = "<iframe src='{$url}/views/{$workbook}/{$view}?:embed=yes&:tabs={$tabs}&:toolbar={$toolbar}&:revert={$revert}&:refresh={$refresh}&:linktarget=($linktarget}&:showVizHome={$showVizHome}' width='{$width}' height='{$height}'></iframe>";
     return $output;
 }
 
@@ -48,7 +53,7 @@ function tableau_addbuttons() {
 	if ( ! current_user_can( 'edit_posts' ) && ! current_user_can( 'edit_pages' ) ) {
     	return;
 	}
-	    
+
    // Add only in Visual Editor mode
 	if ( get_user_option( 'rich_editing' ) == 'true' ) {
    		add_filter( 'mce_external_plugins', 'add_tableau_mce_plugin' );
@@ -67,20 +72,20 @@ function tableau_quicktag() {
 	<script type="text/javascript" charset="utf-8">
 		QTags.addButton( 'tableau-plugin', 'tableau', '\n[tableau server="" workbook="" view="" tabs="" toolbar="" revert="" refresh="" linktarget="" width="800px" height="600px"]', '[/tableau]\n' );
 	</script>
-<?php 
+<?php
 }
 
 function register_tableau_button( $buttons ) {
    array_push( $buttons, "|", "tableau" );
    return $buttons;
 }
- 
+
 // Load the TinyMCE plugin : editor_plugin.js
 function add_tableau_mce_plugin( $plugin_array ) {
    $plugin_array['tableau'] = plugin_dir_url(__FILE__) . 'tinymce/tableau/editor_plugin.js';
    return $plugin_array;
 }
- 
+
 // init process for button control
 function tableau_refresh_mce( $ver ) {
   $ver += 3;
