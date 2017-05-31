@@ -44,7 +44,7 @@ function tableau_func( $atts, $content = null ) {
 
 	$url = esc_url($server); // strips/adds schema, i.e. user can add or not add the server with http(s) schema
 
-	$output = "<iframe src='{$url}/views/{$workbook}/{$view}?:embed=yes&:tabs={$tabs}&:toolbar={$toolbar}&:revert={$revert}&:refresh={$refresh}&:linktarget=($linktarget}&:showVizHome={$showVizHome}' width='{$width}' height='{$height}'></iframe>";
+	$output = "<iframe src='{$url}/views/{$workbook}/{$view}?:embed=yes&:tabs={$tabs}&:toolbar={$toolbar}&:revert={$revert}&:refresh={$refresh}&:linktarget={$linktarget}&:showVizHome={$showVizHome}' width='{$width}' height='{$height}'></iframe>";
     return $output;
 }
 
